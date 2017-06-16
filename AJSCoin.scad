@@ -1,3 +1,6 @@
+/*
+   Copyright 2017 Alan Steremberg
+*/
 // configuration
 coinDiameter = 38.6;
 coinThickness= 3.9;
