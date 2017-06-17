@@ -11,6 +11,10 @@ pipeRadius = 24.25;
 insidePipeRadius=20;
 wallThickness = 2.5;
 
+module hole(x,y,z) {
+    
+}
+
 module pusher(length){
   translate([-length/2+7.5,0,-7.5])
     difference() {
@@ -68,7 +72,8 @@ translate([offset,-(length/2-5),supportHeight])cube([supportWidth,10,wallThickne
 
 // servo holder
 difference(){
-translate([-(offset+5),-(length/2+35),supportHeight])cube([supportWidth+10,90,wallThickness],center=true);
+    servoHolderLength=160;
+translate([-(offset+5),-(length/2),supportHeight])cube([supportWidth+10,servoHolderLength,wallThickness],center=true);
 // servo hole - 40.75
 servoLength = 40.75;
 servoWidth=21.5;
@@ -77,7 +82,58 @@ translate([-(offset+1),-(length/2+50),supportHeight])cube([servoWidth,servoLengt
 }
 
 length=100;
-//color("blue")
-//  translate([100,0,0]) pusher(length);
-  //translate([0,length/2-10,5])flange();
-  tray();
+
+module holeFlange()
+{
+union()
+{
+ difference()
+    {
+flange();
+difference()
+{
+    union(){
+translate([35,-35,0]) cylinder(r=2,h=20,center=true);
+translate([35,35,0]) cylinder(r=2,h=20,center=true);
+translate([-35,-35,0]) cylinder(r=2,h=20,center=true);
+translate([-35,35,0]) cylinder(r=2,h=20,center=true);
+    }
+}
+}
+}
+}
+
+module holeTray()
+{
+    union()
+{
+ difference()
+    {
+tray();
+difference()
+{
+    union()
+    {
+      translate([-29,-73,0]) cylinder(r=2,h=20,center=true);
+      translate([-36,-73,0]) cylinder(r=2,h=20,center=true);
+      translate([-29,-123,0]) cylinder(r=2,h=20,center=true);
+      translate([-36,-123,0]) cylinder(r=2,h=20,center=true);
+
+    translate([0,length/2-10,0])union(){
+translate([35,-35,0]) cylinder(r=2,h=20,center=true);
+translate([35,35,0]) cylinder(r=2,h=20,center=true);
+translate([-35,-35,0]) cylinder(r=2,h=20,center=true);
+translate([-35,35,0]) cylinder(r=2,h=20,center=true);
+    }
+}
+}
+}
+}
+}
+
+color("blue")
+  translate([100,0,0]) pusher(length);
+  translate([0,length/2-10,5])holeFlange();
+  holeTray();
+
+
