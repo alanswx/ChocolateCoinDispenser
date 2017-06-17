@@ -10,6 +10,8 @@ coinThickness= 3.9;
 pipeRadius = 24.25;
 insidePipeRadius=20;
 wallThickness = 2.5;
+screwDiameter = 4.8;
+screwRadius=screwDiameter/2;
 
 module hole(x,y,z) {
     
@@ -63,7 +65,7 @@ module tray()
 supportHeight = (coinThickness+wallThickness)/2-wallThickness/2;
 supportWidth = 40-(coinDiameter+wallThickness*2)/2;
 offset = coinDiameter/2+wallThickness+supportWidth/2;
-echo (supportWidth);
+echo (offset);
 translate([offset,length/2-10,supportHeight])cube([supportWidth,80,wallThickness],center=true);
 translate([-(offset),length/2-10,supportHeight])cube([supportWidth,80,wallThickness],center=true);
 
@@ -93,10 +95,10 @@ flange();
 difference()
 {
     union(){
-translate([35,-35,0]) cylinder(r=2,h=20,center=true);
-translate([35,35,0]) cylinder(r=2,h=20,center=true);
-translate([-35,-35,0]) cylinder(r=2,h=20,center=true);
-translate([-35,35,0]) cylinder(r=2,h=20,center=true);
+translate([35,-35,0]) cylinder(r=screwRadius,h=20,center=true);
+translate([35,35,0]) cylinder(r=screwRadius,h=20,center=true);
+translate([-35,-35,0]) cylinder(r=screwRadius,h=20,center=true);
+translate([-35,35,0]) cylinder(r=screwRadius,h=20,center=true);
     }
 }
 }
@@ -114,16 +116,18 @@ difference()
 {
     union()
     {
-      translate([-29,-73,0]) cylinder(r=2,h=20,center=true);
-      translate([-36,-73,0]) cylinder(r=2,h=20,center=true);
-      translate([-29,-123,0]) cylinder(r=2,h=20,center=true);
-      translate([-36,-123,0]) cylinder(r=2,h=20,center=true);
+        //servo holes
+      translate([-28.5,-75,0]) cylinder(r=screwRadius,h=20,center=true);
+      translate([-36.5,-75,0]) cylinder(r=screwRadius,h=20,center=true);
+      translate([-28.5,-124,0]) cylinder(r=screwRadius,h=20,center=true);
+      translate([-36.5,-124,0]) cylinder(r=screwRadius,h=20,center=true);
+
 
     translate([0,length/2-10,0])union(){
-translate([35,-35,0]) cylinder(r=2,h=20,center=true);
-translate([35,35,0]) cylinder(r=2,h=20,center=true);
-translate([-35,-35,0]) cylinder(r=2,h=20,center=true);
-translate([-35,35,0]) cylinder(r=2,h=20,center=true);
+translate([35,-35,0]) cylinder(r=screwRadius,h=20,center=true);
+translate([35,35,0]) cylinder(r=screwRadius,h=20,center=true);
+translate([-35,-35,0]) cylinder(r=screwRadius,h=20,center=true);
+translate([-35,35,0]) cylinder(r=screwRadius,h=20,center=true);
     }
 }
 }
