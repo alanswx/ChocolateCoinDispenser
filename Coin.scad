@@ -12,17 +12,17 @@ insidePipeRadius=20;
 wallThickness = 2.5;
 screwDiameter = 4.8;
 screwRadius=screwDiameter/2;
+holeOffset = 35;
 
 module hole(x,y,z) {
     
 }
 
 module pusher(length){
-  translate([-length/2+7.5,0,-7.5])
+  translate([-length/2+7.5,0,7.5+coinThickness])
     difference() {
         cube([15,5,15],center=true);
-        rotate([90, 0, 0])
-        cylinder(r=2.5,h=9,center=true);
+        rotate([90, 0, 0]) cylinder(r=2.5,h=9,center=true);
    }   
    // does it want to be as thick as a coin, or slightly thinner??
   linear_extrude(coinThickness){
@@ -54,32 +54,32 @@ difference(){
 
 module tray()
 {
-    difference(){
+   // difference(){
  difference(){
    cube([coinDiameter+wallThickness*2,length,wallThickness+coinThickness],center=true);
    color("red") translate([0,+5,wallThickness/2]) cube([insidePipeRadius*2,length+20,coinThickness],center=true);
  }
- translate([0,length/2,-wallThickness])cylinder(h=coinThickness,r=coinDiameter/2,center=true);
-}
+ //translate([0,length/2,-wallThickness])cylinder(h=coinThickness,r=coinDiameter/2,center=true);
+//}
 
 supportHeight = (coinThickness+wallThickness)/2-wallThickness/2;
 supportWidth = 40-(coinDiameter+wallThickness*2)/2;
 offset = coinDiameter/2+wallThickness+supportWidth/2;
 echo (offset);
-translate([offset,length/2-10,supportHeight])cube([supportWidth,80,wallThickness],center=true);
-translate([-(offset),length/2-10,supportHeight])cube([supportWidth,80,wallThickness],center=true);
+translate([offset,length/2-20,0])cube([supportWidth,80,wallThickness+coinThickness],center=true);
+translate([-(offset),length/2-20,0])cube([supportWidth,80,wallThickness+coinThickness],center=true);
 
 
-translate([offset,-(length/2-5),supportHeight])cube([supportWidth,10,wallThickness],center=true);
+//translate([offset,-(length/2-5),0])cube([supportWidth,10,wallThickness+coinThickness],center=true);
 
 // servo holder
 difference(){
     servoHolderLength=160;
-translate([-(offset+5),-(length/2),supportHeight])cube([supportWidth+10,servoHolderLength,wallThickness],center=true);
+translate([-(offset+5),-(length/2),0])cube([supportWidth+10,servoHolderLength,wallThickness+coinThickness],center=true);
 // servo hole - 40.75
 servoLength = 40.75;
 servoWidth=21.5;
-translate([-(offset+1),-(length/2+50),supportHeight])cube([servoWidth,servoLength,10],center=true);
+translate([-(offset+1),-(length/2+50),0])cube([servoWidth,servoLength,10],center=true);
 }
 }
 
@@ -95,10 +95,10 @@ flange();
 difference()
 {
     union(){
-translate([35,-35,0]) cylinder(r=screwRadius,h=20,center=true);
-translate([35,35,0]) cylinder(r=screwRadius,h=20,center=true);
-translate([-35,-35,0]) cylinder(r=screwRadius,h=20,center=true);
-translate([-35,35,0]) cylinder(r=screwRadius,h=20,center=true);
+translate([holeOffset,-holeOffset,0]) cylinder(r=screwRadius,h=20,center=true);
+translate([holeOffset,holeOffset,0]) cylinder(r=screwRadius,h=20,center=true);
+translate([-holeOffset,-holeOffset,0]) cylinder(r=screwRadius,h=20,center=true);
+translate([-holeOffset,holeOffset,0]) cylinder(r=screwRadius,h=20,center=true);
     }
 }
 }
@@ -123,11 +123,11 @@ difference()
       translate([-36.5,-124,0]) cylinder(r=screwRadius,h=20,center=true);
 
 
-    translate([0,length/2-10,0])union(){
-translate([35,-35,0]) cylinder(r=screwRadius,h=20,center=true);
-translate([35,35,0]) cylinder(r=screwRadius,h=20,center=true);
-translate([-35,-35,0]) cylinder(r=screwRadius,h=20,center=true);
-translate([-35,35,0]) cylinder(r=screwRadius,h=20,center=true);
+    translate([0,length/2-20,0])union(){
+translate([holeOffset,-holeOffset,0]) cylinder(r=screwRadius,h=20,center=true);
+translate([holeOffset,holeOffset,0]) cylinder(r=screwRadius,h=20,center=true);
+translate([-holeOffset,-holeOffset,0]) cylinder(r=screwRadius,h=20,center=true);
+translate([-holeOffset,holeOffset,0]) cylinder(r=screwRadius,h=20,center=true);
     }
 }
 }
@@ -136,8 +136,8 @@ translate([-35,35,0]) cylinder(r=screwRadius,h=20,center=true);
 }
 
 color("blue")
-  translate([100,0,0]) pusher(length);
-  translate([0,length/2-10,5])holeFlange();
+  //translate([100,0,0]) pusher(length);
+  //translate([0,length/2-20,5])holeFlange();
   holeTray();
 
 
