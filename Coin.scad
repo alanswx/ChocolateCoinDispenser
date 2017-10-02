@@ -92,30 +92,7 @@ translate([offset,-(length/2-5),0])cube([supportWidth,40,wallThickness+coinThick
 
 // servo holder
 difference(){
- /*   #if 0
-    
-   // this is the main tray that mates with the pusher. 
-   // It is the groove the pusher sits in. 
-   difference(){
-      cube([coinDiameter+wallThickness*2,length,wallThickness+coinThickness],center=true);
-      translate([0,+5,wallThickness/2]) cube([insidePipeRadius*2,length+20,coinThickness],center=true);
-   }
 
-
-   // some variables to make things easier
-   supportHeight = (coinThickness+wallThickness)/2-wallThickness/2;
-   supportWidth = flangeWidth/2-(coinDiameter+wallThickness*2)/2;
-   offset = coinDiameter/2+wallThickness+supportWidth/2;
-
-
-   // This creates the area for the flange too hook to. It is the same size as the flange.
-   translate([offset,length/2-20,0])cube([supportWidth,flangeWidth,wallThickness+coinThickness],center=true);
-   translate([-(offset),length/2-20,0])cube([supportWidth,flangeWidth,wallThickness+coinThickness],center=true);
-
-
-   // servo holder
-   difference(){
-#endif*/
 
     servoHolderLength=160;
     translate([-(offset+5),-(length/2),0])cube([supportWidth+10,servoHolderLength,   wallThickness+coinThickness],center=true);
