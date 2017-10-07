@@ -7,9 +7,10 @@ $fn=100;
 
 coinDiameter = 38.6;
 coinThickness= 3.9;
-pipeRadius = 24.25; // black pipe
+//pipeRadius = 24.25; // black pipe
 pipeRadius = 22.00; // clear pipe
-insidePipeRadius=20.8;
+//insidePipeRadius=20.8;
+insidePipeRadius=coinDiameter/2+1;
 wallThickness = 2.5;
 screwDiameter = 4.8;
 screwRadius=screwDiameter/2;
@@ -88,14 +89,14 @@ translate([offset,length/2-20,0])cube([supportWidth,80,wallThickness+coinThickne
 translate([-(offset),length/2-20,0])cube([supportWidth,80,wallThickness+coinThickness],center=true);
 
 // another leg to put a screw in
-translate([offset,-(length/2-5),0])cube([supportWidth,40,wallThickness+coinThickness],center=true);
+translate([offset,-(length/2-10),0])cube([supportWidth,20,wallThickness+coinThickness],center=true);
 
 // servo holder
 difference(){
 
 
-    servoHolderLength=160;
-    translate([-(offset+5),-(length/2),0])cube([supportWidth+10,servoHolderLength,   wallThickness+coinThickness],center=true);
+    servoHolderLength=160-40;
+    translate([-(offset+5),-(length/2)-20,0])cube([supportWidth+10,servoHolderLength,   wallThickness+coinThickness],center=true);
 // servo hole - 40.75
     servoLength = 40.75;
     servoWidth=21.5;
@@ -151,8 +152,8 @@ module holeTray()
 length=100;
 
 color("blue")
-  translate([100,0,0]) pusher(length);
-  translate([0,length/2-20,5])holeFlange();
+  //translate([100,0,0]) pusher(length);
+  //translate([0,length/2-20,5])holeFlange();
   holeTray();
 
 
