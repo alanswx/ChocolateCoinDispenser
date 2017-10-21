@@ -8,7 +8,7 @@ $fn=100;
 coinDiameter = 38.6;
 coinThickness= 3.9;
 //pipeRadius = 24.25; // black pipe
-pipeRadius = 22.00; // clear pipe
+pipeRadius = 21.40; // clear pipe
 //insidePipeRadius=20.8;
 insidePipeRadius=coinDiameter/2+1;
 wallThickness = 2.5;
@@ -16,7 +16,7 @@ screwDiameter = 4.8;
 screwRadius=screwDiameter/2;
 holeOffset = 35;
 flangeWidth = 80;
-
+servoPusherHoleDiameter=1.75;
 //
 // The pusher is the part that pushes coins out. It has a handle, and hole to hook
 // a wire, that is hooked to the servo horn
@@ -29,7 +29,7 @@ module pusher(length){
   translate([-length/2+7.5,0,7.5+coinThickness])
     difference() {
         cube([15,5,15],center=true);
-        rotate([90, 0, 0]) cylinder(r=2.5,h=9,center=true);
+        rotate([90, 0, 0]) cylinder(r=servoPusherHoleDiameter/2,h=9,center=true);
    }   
    // extrude the square minus circle into a cube with a coin shape taken out of it
    // does it want to be as thick as a coin, or slightly thinner??
@@ -89,7 +89,7 @@ translate([offset,length/2-20,0])cube([supportWidth,80,wallThickness+coinThickne
 translate([-(offset),length/2-20,0])cube([supportWidth,80,wallThickness+coinThickness],center=true);
 
 // another leg to put a screw in
-translate([offset,-(length/2-10),0])cube([supportWidth,20,wallThickness+coinThickness],center=true);
+//translate([offset,-(length/2-10),0])cube([supportWidth,20,wallThickness+coinThickness],center=true);
 
 // servo holder
 difference(){
@@ -152,8 +152,8 @@ module holeTray()
 length=100;
 
 color("blue")
-  //translate([100,0,0]) pusher(length);
-  //translate([0,length/2-20,5])holeFlange();
+  translate([100,0,0]) pusher(length);
+  translate([0,length/2-20,5])holeFlange();
   holeTray();
 
 
