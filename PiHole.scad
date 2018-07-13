@@ -85,5 +85,5 @@ module piPosts(board, height=5, preview=true) {
 
 color("DarkGreen", 1, $fn=20) {
 	piBoard("3B");
-    piPosts("3B");
+    //piPosts("3B");
 }

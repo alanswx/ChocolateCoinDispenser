@@ -5,8 +5,8 @@
 
 $fn=100;
 
-boxWidth=91.5;
-boxHeight=51.4;
+boxWidth=95.5;
+boxHeight=53.4;
 boxThickness=12;
 
 coinDiameter = boxHeight;
@@ -160,8 +160,8 @@ module holeTray()
 
 length=150;
 
-//color("blue")  translate([200,0,0]) pusher(length);
+color("blue")  translate([200,0,0]) pusher(length);
 //color("red")  translate([0,length/2-20,10])holeFlange();
-color("green")  holeTray();
+//color("green")  holeTray();
 
 
