@@ -19,7 +19,8 @@ wallThickness = 2.5;
 screwDiameter = 4.8;
 screwRadius=screwDiameter/2;
 holeOffset = 35;
-flangeWidth = 100;
+flangeWidth = 90;
+flangeHeight= 130;
 servoPusherHoleDiameter=1.75;
 //
 // The pusher is the part that pushes coins out. It has a handle, and hole to hook
@@ -58,17 +59,17 @@ module flange(){
      difference() {
         // the basic shape is a cube with a cylinder tacked onto it
        union(){
-        cube([flangeWidth,flangeWidth,h],center=true);
+        cube([flangeWidth,flangeHeight,h],center=true);
         translate([0,0,8])
             //cylinder(r=26.5, h=h+10, center=true);
-            cube([boxHeight+5,boxWidth+5,h+10],center=true);
+            cube([boxHeight+10,boxWidth+10,h+10],center=true);
 
        }
        // remove the hole the pipe fits in - it doesn't go all the way through, so the
        // pipe can sit on a "shelf"
        translate([0,0,h+9])
 //	      cylinder(r=pipeRadius, h=h+20, center=true);
-            cube([boxHeight,boxWidth,h+20],center=true);
+            cube([boxHeight+7,boxWidth+7,h+20],center=true);
 
      }
     // remove the hole the coin will fall through
@@ -82,18 +83,17 @@ module flange(){
 //  some of the mounting holes (that hook to the flange) are in another module
 module tray()
 {
-   // difference(){
- difference(){
-   cube([coinDiameter+wallThickness*2,length,wallThickness+coinThickness],center=true);
-   color("red") translate([0,+5,wallThickness/2]) cube([insidePipeRadius*2,length+20,coinThickness],center=true);
- }
- //translate([0,length/2,-wallThickness])cylinder(h=coinThickness,r=coinDiameter/2,center=true);
-//}
 
+// Tray
+ difference(){
+   cube([coinDiameter+wallThickness*2,length+40,wallThickness+coinThickness],center=true);
+    translate([0,+5,wallThickness/2]) cube([insidePipeRadius*2,length+50,coinThickness],center=true);
+ }
+
+// Supports that match up with flange
 supportHeight = (coinThickness+wallThickness)/2-wallThickness/2;
 supportWidth = 40-(coinDiameter+wallThickness*2)/2;
 offset = coinDiameter/2+wallThickness+supportWidth/2;
-echo (offset);
 translate([offset,length/2-20,0])cube([supportWidth,80,wallThickness+coinThickness],center=true);
 translate([-(offset),length/2-20,0])cube([supportWidth,80,wallThickness+coinThickness],center=true);
 
@@ -101,16 +101,18 @@ translate([-(offset),length/2-20,0])cube([supportWidth,80,wallThickness+coinThic
 //translate([offset,-(length/2-10),0])cube([supportWidth,20,wallThickness+coinThickness],center=true);
 
 // servo holder
-difference(){
-
-
     servoHolderLength=180-40;
-    translate([-(offset+5),-(length/2)-20,0])cube([supportWidth+10,servoHolderLength,   wallThickness+coinThickness],center=true);
+ difference() {
+
+difference(){
+    color("red") translate([-(offset+5),-(length/2)-20,0])cube([supportWidth+10,servoHolderLength,   wallThickness+coinThickness],center=true);
 // servo hole - 40.75
     servoLength = 40.75;
     servoWidth=21.5;
     translate([-(offset+1),-(length/2+50),0])cube([servoWidth,servoLength,coinThickness+wallThickness+10],center=true);
    }
+      translate([-(offset+5),-(length/2)+20,wallThickness])cube([supportWidth+10,servoHolderLength-70,   wallThickness+coinThickness],center=true);
+}
 }
 
 
@@ -135,10 +137,10 @@ module holeTray()
     tray();
     union() {
       //servo holes
-      translate([-28.5-4,-75,0]) cylinder(r=screwRadius,h=20,center=true);
-      translate([-36.5-4,-75,0]) cylinder(r=screwRadius,h=20,center=true);
-      translate([-28.5-4,-124,0]) cylinder(r=screwRadius,h=20,center=true);
-      translate([-36.5-4,-124,0]) cylinder(r=screwRadius,h=20,center=true);
+      translate([-28.5-4,-75-15,0]) cylinder(r=screwRadius,h=20,center=true);
+      translate([-36.5-4,-75-15,0]) cylinder(r=screwRadius,h=20,center=true);
+      translate([-28.5-4,-124-15,0]) cylinder(r=screwRadius,h=20,center=true);
+      translate([-36.5-4,-124-15,0]) cylinder(r=screwRadius,h=20,center=true);
 
       // holes to match up with the flange
       translate([0,length/2-20,0]) union(){
@@ -152,16 +154,17 @@ module holeTray()
     
     // mounting holes
       translate([-35,-60,0]) cylinder(r=screwRadius,h=20,center=true);
-      translate([31,-40,0]) cylinder(r=screwRadius,h=20,center=true);
+     // translate([31,-40,0]) cylinder(r=screwRadius,h=20,center=true);
     
   }
 }
 
 
-length=150;
+//length=150;
+length = boxWidth+15.5+21;
 
-color("blue")  translate([200,0,0]) pusher(length);
+//color("blue")  translate([200,0,0]) pusher(length);
 //color("red")  translate([0,length/2-20,10])holeFlange();
-//color("green")  holeTray();
+  holeTray();
 
 
