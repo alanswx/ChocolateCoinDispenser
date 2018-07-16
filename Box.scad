@@ -163,8 +163,8 @@ module holeTray()
 //length=150;
 length = boxWidth+15.5+21;
 
-//color("blue")  translate([200,0,0]) pusher(length);
-//color("red")  translate([0,length/2-20,10])holeFlange();
-  holeTray();
+color("blue")  translate([200,0,0]) pusher(length);
+color("red")  translate([0,length/2-20,10])holeFlange();
+holeTray();
 
 
