@@ -239,16 +239,27 @@ translate([-(offset),length/2-20,0])cube([supportWidth,80,wallThickness+coinThic
 //translate([offset,-(length/2-10),0])cube([supportWidth,20,wallThickness+coinThickness],center=true);
 
 // servo holder
-    servoHolderLength=180-40;
+    servoHolderLength=120-40;
+ 
+    difference(){
+     color("green") translate([-(offset+5),-(length/2-20),0])cube([supportWidth+10,servoHolderLength,   wallThickness+coinThickness],center=true);
+        union(){
+        color("blue") translate([-36.5-6,-25,0]) cylinder(r=screwRadius,h=20,center=true);
+        color("blue") translate([-36.5-6,-124+75-25,0]) cylinder(r=screwRadius,h=20,center=true);
+        }
+    }
+
+ if (False)
  difference() {
 
 difference(){
-    color("red") translate([-(offset+5),-(length/2)-20,0])cube([supportWidth+10,servoHolderLength,   wallThickness+coinThickness],center=true);
+    color("green") translate([-(offset+5),-(length/2)-20,0])cube([supportWidth+10,servoHolderLength,   wallThickness+coinThickness],center=true);
 // servo hole - 40.75
     servoLength = 40.75;
     servoWidth=21.5;
     translate([-(offset+1),-(length/2+50),0])cube([servoWidth,servoLength,coinThickness+wallThickness+10],center=true);
    }
+   // subtract out the base
       translate([-(offset+5),-(length/2)+20,wallThickness])cube([supportWidth+10,servoHolderLength-70,   wallThickness+coinThickness],center=true);
 }
 }
@@ -317,7 +328,7 @@ difference(){
     
     cube([length, width, servo_mount],center=true);
     echo("woffset:",woffset);
-    translate([0,woffset,0]) cube([servo_length,servo_width, servo_mount],center=true);
+    translate([0,woffset,0]) cube([servo_length,servo_width, servo_mount+5],center=true);
     }
     union(){
     translate([0,-width/2+2.5,14])cube([length,5,servo_mount+20],center=true);
@@ -331,18 +342,36 @@ module servoHolderHoles(){
         rotate([90,0,270]) servoHolder();
         union(){
       //translate([30-28.5-4,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
-      translate([30-36.5-4,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      translate([30-36.5,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      translate([30-36.5-5,-15+40,-30]) cube([10,screwRadius*2,50],center=true);       
+      translate([30-36.5-10,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
      // translate([30-28.5-4,-124+75+40-15,-30]) cylinder(r=screwRadius,h=50,center=true);
-      translate([30-36.5-4,-124+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      translate([30-36.5,-124+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      translate([30-36.5-5,-124+75-15+40,-30]) cube([10,screwRadius*2,50],center=true);
+      translate([30-36.5-10,-124+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+    rotate([0,90,0])translate([8,0,20])color("red") union(){
+      translate([30-36.5,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      translate([30-36.5-6,-15+40,-30]) cube([11,screwRadius*2,50],center=true);       
+      translate([30-36.5-12,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      translate([30-36.5,-124+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      translate([30-36.5-6,-124+75-15+40,-30]) cube([11,screwRadius*2,50],center=true);       
+      translate([30-36.5-12,-124+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+    }
+
         }
     }
+    
+
+    
+    
 }
 //length=150;
 length = boxWidth+15.5+21;
 
-color("blue")  translate([200,0,0]) pusher(length);
-//color("red")  translate([0,length/2-20,10])holeFlange();
+//color("blue")  translate([200,0,0]) pusher(length);
+color("red")  translate([0,length/2-20,10])holeFlange();
 //color("orange") translate([-30,-length/2-20-28,25]) servoHolderHoles();
-//holeTray();
+color("orange") translate([-32,-length/2+16,25]) servoHolderHoles();
+holeTray();
 
 
