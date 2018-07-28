@@ -370,7 +370,7 @@ module servoHolderHoles(){
 module  dowelFlange(){
   h = 3.5;
  
-  dowelRadius=6.35/2;
+  dowelRadius=7.75/2;
   dowelHolderRadius=dowelRadius+2;
     
 
@@ -388,7 +388,7 @@ module  dowelFlange(){
 
           translate([-(boxHeight/2+dowelRadius/2),boxWidth/2+dowelRadius/2,8]) cylinder(r=dowelRadius, h=h+20, center=true);
            }
-             dowelRadius2=8.35/2;
+             dowelRadius2=11.25/2;
             dowelHolderRadius2=dowelRadius2+2;
 
            difference(){
@@ -434,8 +434,8 @@ length = boxWidth+15.5+21;
 //color("blue")  translate([200,0,0]) pusher(length);
 //color("red")  translate([0,length/2-20,10])holeFlange();
 //color("orange") translate([-30,-length/2-20-28,25]) servoHolderHoles();
-color("orange") translate([-32,-length/2+16,25]) servoHolderHoles();
-holeTray();
+//color("orange") translate([-32,-length/2+16,25]) servoHolderHoles();
+//holeTray();
 color("red")  translate([0,length/2-20,10])holeDowelFlange();
 
 // todo - flange with supports for dowels

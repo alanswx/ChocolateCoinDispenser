@@ -199,21 +199,41 @@ module hanging_bracket(){
 }
 
 
-module power_supply_bracket(){
+module power_supply_bracket(wide){
     powerHoleDistanceShort=100;
     powerHoldDistanceLong=143.5;
-    powerBracketWidth=152;
+    powerBracketWidth=160;
+    standoffHeight=20;
+    screwHeadRadius=7;
+    pwBracketWidth=bracketWidth+wide;
+
     difference(){
         union(){    
-            cube([powerBracketWidth,bracketWidth,bracketThickness],center=true);
-            translate([powerBracketWidth/2-4,0,bracketThickness-2])cube([8,bracketWidth,4],center=true);
-            translate([-powerBracketWidth/2+4,0,bracketThickness-2])cube([8,bracketWidth,4],center=true);
+            cube([powerBracketWidth,pwBracketWidth,bracketThickness],center=true);
+            translate([powerBracketWidth/2-8.5,0,standoffHeight/2+bracketThickness/2])cube([screwHeadRadius+10,pwBracketWidth,standoffHeight],center=true);
+            translate([-powerBracketWidth/2+8.5,0,standoffHeight/2+bracketThickness/2])cube([screwHeadRadius+10,pwBracketWidth,standoffHeight],center=true);
+
         }
         union(){
-        color("red") translate([powerHoleDistanceShort/2,0,0]) cylinder(r=screwRadius,h=50,center=true);
-        color("red") translate([-powerHoleDistanceShort/2,0,0]) cylinder(r=screwRadius,h=50,center=true);
-        color("red") translate([-powerHoldDistanceLong/2,0,0]) cylinder(r=screwRadius,h=50,center=true);
-        color("red") translate([powerHoldDistanceLong/2,0,0]) cylinder(r=screwRadius,h=50,center=true);
+            color("red") translate([powerHoleDistanceShort/2,0,0]) cylinder(r=screwRadius,h=50,center=true);
+            color("red") translate([-powerHoleDistanceShort/2,0,0]) cylinder(r=screwRadius,h=50,center=true);
+            color("red") translate([-powerHoldDistanceLong/2,0,0]) cylinder(r=screwRadius,h=50,center=true);
+            color("red") translate([powerHoldDistanceLong/2,0,0]) cylinder(r=screwRadius,h=50,center=true);
+            color("red") translate([-powerHoldDistanceLong/2,0,standoffHeight/2+bracketThickness/2-bracketThickness]) cylinder(r=screwHeadRadius,h=standoffHeight,center=true);
+            color("red") translate([powerHoldDistanceLong/2,0,standoffHeight/2+bracketThickness/2-bracketThickness]) cylinder(r=screwHeadRadius,h=standoffHeight,center=true);
+            
+            
+     if (wide>0)
+     {
+         color("red") translate([powerHoldDistanceLong/2,bracketWidth/2-screwRadius,0]) cylinder(r=screwRadius,h=50,center=true);
+            color("red") translate([powerHoldDistanceLong/2,bracketWidth/2-screwRadius,standoffHeight/2+bracketThickness/2-bracketThickness]) cylinder(r=screwHeadRadius,h=standoffHeight,center=true);
+
+            color("red") translate([powerHoldDistanceLong/2,bracketWidth/2-screwRadius,0]) cylinder(r=screwRadius,h=50,center=true);
+            color("red") translate([powerHoldDistanceLong/2,bracketWidth/2-screwRadius,standoffHeight/2+bracketThickness/2-bracketThickness]) cylinder(r=screwHeadRadius,h=standoffHeight,center=true);
+            
+            color("red") translate([-powerHoldDistanceLong/2,bracketWidth/2-screwRadius,0]) cylinder(r=screwRadius,h=50,center=true);
+            color("red") translate([-powerHoldDistanceLong/2,bracketWidth/2-screwRadius,standoffHeight/2+bracketThickness/2-bracketThickness]) cylinder(r=screwHeadRadius,h=standoffHeight,center=true);
+     }
         }
     }
     
@@ -233,7 +253,8 @@ module power_supply_bracket(){
 //}
 
 
-power_supply_bracket();
+translate([0,100,0])power_supply_bracket(0);
+//power_supply_bracket(10);
 //hanging_bracket();
 //half_bracket();
 //translate([100,0,0])center_bracket();
