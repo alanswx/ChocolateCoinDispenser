@@ -365,13 +365,78 @@ module servoHolderHoles(){
     
     
 }
+
+
+module  dowelFlange(){
+  h = 3.5;
+ 
+  dowelRadius=6.35/2;
+  dowelHolderRadius=dowelRadius+2;
+    
+
+  difference(){
+     difference() {
+        // the basic shape is a cube with a cylinder tacked onto it
+       union(){
+           difference(){
+             translate([boxHeight/2+dowelHolderRadius/2,boxWidth/2+dowelHolderRadius/2,8]) cylinder(r=dowelHolderRadius, h=10, center=true);
+
+          translate([boxHeight/2+dowelRadius/2,boxWidth/2+dowelRadius/2,8]) cylinder(r=dowelRadius, h=h+20, center=true);
+           }
+           difference(){
+             translate([-(boxHeight/2+dowelHolderRadius/2),boxWidth/2+dowelHolderRadius/2,8]) cylinder(r=dowelHolderRadius, h=10, center=true);
+
+          translate([-(boxHeight/2+dowelRadius/2),boxWidth/2+dowelRadius/2,8]) cylinder(r=dowelRadius, h=h+20, center=true);
+           }
+             dowelRadius2=8.35/2;
+            dowelHolderRadius2=dowelRadius2+2;
+
+           difference(){
+             translate([boxHeight/2+dowelHolderRadius2/2,-(boxWidth/2+dowelHolderRadius2/2),8]) cylinder(r=dowelHolderRadius2, h=10, center=true);
+
+          translate([boxHeight/2+dowelRadius2/2,-(boxWidth/2+dowelRadius2/2),8]) cylinder(r=dowelRadius2, h=h+20, center=true);
+           }
+           difference(){
+             translate([-(boxHeight/2+dowelHolderRadius2/2),-(boxWidth/2+dowelHolderRadius2/2),8]) cylinder(r=dowelHolderRadius2, h=10, center=true);
+
+          translate([-(boxHeight/2+dowelRadius2/2),-(boxWidth/2+dowelRadius2/2),8]) cylinder(r=dowelRadius2, h=h+20, center=true);
+           }
+        cube([flangeWidth,flangeHeight,h],center=true);
+
+       }
+
+
+     }
+    // remove the hole the coin will fall through
+     cube([boxHeight,boxWidth,h+30],center=true);
+//	cylinder(r=insidePipeRadius, h=h+30, center=true);
+   }
+}
+
+
+// this subtracts holes from the flange
+module holeDowelFlange()
+{
+       difference() {
+          dowelFlange();
+          union() {
+            translate([holeOffset,-holeOffset,0]) cylinder(r=screwRadius,h=20, center=true);
+            translate([holeOffset,holeOffset,0]) cylinder(r=screwRadius,h=20,center=true);
+            translate([-holeOffset,-holeOffset,0]) cylinder(r=screwRadius,h=20,center=true);
+            translate([-holeOffset,holeOffset,0]) cylinder(r=screwRadius,h=20,center=true);
+           }
+       }
+}
+
 //length=150;
 length = boxWidth+15.5+21;
 
 //color("blue")  translate([200,0,0]) pusher(length);
-color("red")  translate([0,length/2-20,10])holeFlange();
+//color("red")  translate([0,length/2-20,10])holeFlange();
 //color("orange") translate([-30,-length/2-20-28,25]) servoHolderHoles();
 color("orange") translate([-32,-length/2+16,25]) servoHolderHoles();
 holeTray();
+color("red")  translate([0,length/2-20,10])holeDowelFlange();
 
-
+// todo - flange with supports for dowels
+// todo - servo holder, make it taller so we can adjust on two axis - and fix problems easily - no washers needed
