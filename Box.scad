@@ -311,9 +311,9 @@ module holeTray()
 }
 
 module servoHolder(
-   top_gap=4,
+   top_gap=4+4,
    side_gap=10,
-   servo_width=20, 
+   servo_width=20+15, 
    servo_length=42.5,
    gear_radius=17.8,
    servo_mount=4,
@@ -342,20 +342,22 @@ module servoHolderHoles(){
         rotate([90,0,270]) servoHolder();
         union(){
       //translate([30-28.5-4,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
-      translate([30-36.5,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
-      translate([30-36.5-5,-15+40,-30]) cube([10,screwRadius*2,50],center=true);       
+      translate([30-36.5+2,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      translate([30-36.5-5,-15+40,-30]) cube([10+2,screwRadius*2,50],center=true);       
       translate([30-36.5-10,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
      // translate([30-28.5-4,-124+75+40-15,-30]) cylinder(r=screwRadius,h=50,center=true);
-      translate([30-36.5,-124+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
-      translate([30-36.5-5,-124+75-15+40,-30]) cube([10,screwRadius*2,50],center=true);
+      translate([30-36.5+2,-124+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      translate([30-36.5-5,-124+75-15+40,-30]) cube([10+2,screwRadius*2,50],center=true);
       translate([30-36.5-10,-124+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
     rotate([0,90,0])translate([8,0,20])color("red") union(){
-      translate([30-36.5,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
-      translate([30-36.5-6,-15+40,-30]) cube([11,screwRadius*2,50],center=true);       
-      translate([30-36.5-12,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
-      translate([30-36.5,-124+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
-      translate([30-36.5-6,-124+75-15+40,-30]) cube([11,screwRadius*2,50],center=true);       
-      translate([30-36.5-12,-124+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      //slot 1 - servo screws
+      translate([30-36.5+7.5,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      translate([30-36.5-6,-15+40,-30]) cube([11+15,screwRadius*2,50],center=true);       
+      translate([30-36.5-12-7.5,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      // slot 2
+      translate([30-36.5+7.5,-125+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      translate([30-36.5-6,-125+75-15+40,-30]) cube([11+15,screwRadius*2,50],center=true);       
+      translate([30-36.5-12-7.5,-125+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
     }
 
         }
@@ -366,45 +368,88 @@ module servoHolderHoles(){
     
 }
 
-
-module  dowelFlange(){
+module  dowelFlange2(){
   h = 3.5;
  
-  dowelRadius=7.75/2;
+  dowelRadius=8.75/2;
   dowelHolderRadius=dowelRadius+2;
     
 
   difference(){
+
      difference() {
         // the basic shape is a cube with a cylinder tacked onto it
        union(){
-           difference(){
-             translate([boxHeight/2+dowelHolderRadius/2,boxWidth/2+dowelHolderRadius/2,8]) cylinder(r=dowelHolderRadius, h=10, center=true);
+           cube([flangeWidth,flangeHeight,h],center=true);
+           
+             translate([boxHeight/2+dowelHolderRadius/2,boxWidth/2+dowelHolderRadius/2,8]) cylinder(r=dowelHolderRadius, h=14, center=true);
+             translate([-(boxHeight/2+dowelHolderRadius/2),boxWidth/2+dowelHolderRadius/2,8]) cylinder(r=dowelHolderRadius, h=14, center=true);
 
-          translate([boxHeight/2+dowelRadius/2,boxWidth/2+dowelRadius/2,8]) cylinder(r=dowelRadius, h=h+20, center=true);
-           }
-           difference(){
-             translate([-(boxHeight/2+dowelHolderRadius/2),boxWidth/2+dowelHolderRadius/2,8]) cylinder(r=dowelHolderRadius, h=10, center=true);
-
-          translate([-(boxHeight/2+dowelRadius/2),boxWidth/2+dowelRadius/2,8]) cylinder(r=dowelRadius, h=h+20, center=true);
-           }
-             dowelRadius2=11.25/2;
+             dowelRadius2=13.25/2;
             dowelHolderRadius2=dowelRadius2+2;
 
-           difference(){
-             translate([boxHeight/2+dowelHolderRadius2/2,-(boxWidth/2+dowelHolderRadius2/2),8]) cylinder(r=dowelHolderRadius2, h=10, center=true);
-
-          translate([boxHeight/2+dowelRadius2/2,-(boxWidth/2+dowelRadius2/2),8]) cylinder(r=dowelRadius2, h=h+20, center=true);
-           }
-           difference(){
-             translate([-(boxHeight/2+dowelHolderRadius2/2),-(boxWidth/2+dowelHolderRadius2/2),8]) cylinder(r=dowelHolderRadius2, h=10, center=true);
-
-          translate([-(boxHeight/2+dowelRadius2/2),-(boxWidth/2+dowelRadius2/2),8]) cylinder(r=dowelRadius2, h=h+20, center=true);
-           }
-        cube([flangeWidth,flangeHeight,h],center=true);
+             translate([boxHeight/2+dowelHolderRadius2/2,-(boxWidth/2+dowelHolderRadius2/2),8]) cylinder(r=dowelHolderRadius2, h=14, center=true);
+             translate([-(boxHeight/2+dowelHolderRadius2/2),-(boxWidth/2+dowelHolderRadius2/2),8]) cylinder(r=dowelHolderRadius2, h=14, center=true);
 
        }
+union(){
+      dowelRadius=8.75/2;
+  dowelHolderRadius=dowelRadius+2;
 
+              translate([boxHeight/2+dowelRadius/2,boxWidth/2+dowelRadius/2,8]) cylinder(r=dowelRadius, h=h+20, center=true);
+              translate([-(boxHeight/2+dowelRadius/2),boxWidth/2+dowelRadius/2,8]) cylinder(r=dowelRadius, h=h+20, center=true);
+                 dowelRadius2=13.25/2;
+            dowelHolderRadius2=dowelRadius2+2;
+
+          translate([boxHeight/2+dowelRadius2/2,-(boxWidth/2+dowelRadius2/2),8]) cylinder(r=dowelRadius2, h=h+20, center=true);
+          translate([-(boxHeight/2+dowelRadius2/2),-(boxWidth/2+dowelRadius2/2),8]) cylinder(r=dowelRadius2, h=h+20, center=true);
+
+}
+
+     }
+    // remove the hole the coin will fall through
+     cube([boxHeight,boxWidth,h+30],center=true);
+//	cylinder(r=insidePipeRadius, h=h+30, center=true);
+   }
+}
+
+module  dowelFlange(){
+  h = 3.5;
+ 
+  dowelRadius=8.75/2;
+  dowelHolderRadius=dowelRadius+2;
+  dowelRadius2=13.25/2;
+  dowelHolderRadius2=dowelRadius2+2;
+    
+
+  difference(){
+
+     difference() {
+        // the basic shape is a cube with a cylinder tacked onto it
+       union(){
+           cube([flangeWidth,flangeHeight,h],center=true);
+           
+
+           
+             translate([0,boxWidth/2+dowelHolderRadius,8]) cylinder(r=dowelHolderRadius, h=14, center=true);
+             translate([boxHeight/2+dowelHolderRadius2,0,8]) cylinder(r=dowelHolderRadius2, h=14, center=true);
+           
+           
+
+             translate([0,-(boxWidth/2+dowelHolderRadius),8]) cylinder(r=dowelHolderRadius, h=14, center=true);
+             translate([-(boxHeight/2+dowelHolderRadius2),0,8]) cylinder(r=dowelHolderRadius2, h=14, center=true);
+           
+
+
+       }
+union(){
+
+          translate([0,boxWidth/2+dowelRadius,8]) cylinder(r=dowelRadius, h=h+20, center=true);
+          translate([-(boxHeight/2+dowelRadius2),0,8]) cylinder(r=dowelRadius2, h=h+20, center=true);
+          translate([0,-(boxWidth/2+dowelRadius),8]) cylinder(r=dowelRadius, h=h+20, center=true);
+          translate([(boxHeight/2+dowelRadius2),0,8]) cylinder(r=dowelRadius2, h=h+20, center=true);
+
+}
 
      }
     // remove the hole the coin will fall through
@@ -434,9 +479,9 @@ length = boxWidth+15.5+21;
 //color("blue")  translate([200,0,0]) pusher(length);
 //color("red")  translate([0,length/2-20,10])holeFlange();
 //color("orange") translate([-30,-length/2-20-28,25]) servoHolderHoles();
-//color("orange") translate([-32,-length/2+16,25]) servoHolderHoles();
+color("orange") translate([-32,-length/2+16,25]) servoHolderHoles();
 //holeTray();
-color("red")  translate([0,length/2-20,10])holeDowelFlange();
+//color("red")  translate([0,length/2-20,10])holeDowelFlange();
 
 // todo - flange with supports for dowels
 // todo - servo holder, make it taller so we can adjust on two axis - and fix problems easily - no washers needed
