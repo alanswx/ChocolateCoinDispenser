@@ -155,33 +155,27 @@ difference(){
 
 
 module pusher(length){
-    
+    difference(){
+    union(){
     difference() {
-        
-
     union() {
-        
-        
+         // cube to hold teeth
          translate([70,-21,coinThickness/2]) cube([122,11,coinThickness],center=true);
-  // This is the handle on top the servo hooks to
- // translate([-length/2+7.5,0,7.5+coinThickness])
-   // difference() {
-   //     cube([15,5,15],center=true);
-  //      rotate([90, 0, 0]) cylinder(r=servoPusherHoleDiameter/2,h=9,center=true);
-  // }   
-   // extrude the square minus circle into a cube with a coin shape taken out of it
-   // does it want to be as thick as a coin, or slightly thinner??
-  linear_extrude(coinThickness){
-        //difference(){
+        // main cube
+        linear_extrude(coinThickness){
             square([length,coinDiameter],true);
-        //    translate([length/2,0,0])
-        //        circle(d=coinDiameter);
-        //}
+        }
+   }
+
+     // remove a spot for the teeth
+     translate ([-80,-27,5]) cube([300,11,15]);
   }
-  }
-  translate ([-80,-27,5]) cube([300,11,15]);
-  }
-        translate([32.5,-21,5]) rotate([0,180,90]) gear_rack(mod=2.5,number_of_teeth=25,rack_width=10,rack_bottom_height=3);
+       //teeth
+       translate([32.5,-21,5]) rotate([0,180,90]) gear_rack(mod=2.5,number_of_teeth=25,rack_width=10,rack_bottom_height=3);
+   }
+     // remove a slant at the front
+     translate([-75,-35,-5]) rotate([0,20,0])color("yellow") cube([25,122,10]);
+}
 }
 
 
@@ -311,9 +305,9 @@ module holeTray()
 }
 
 module servoHolder(
-   top_gap=4+4,
+   top_gap=4+4+12,
    side_gap=10,
-   servo_width=20+15, 
+   servo_width=20+15+12, 
    servo_length=42.5,
    gear_radius=17.8,
    servo_mount=4,
@@ -351,13 +345,13 @@ module servoHolderHoles(){
       translate([30-36.5-10,-124+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
     rotate([0,90,0])translate([8,0,20])color("red") union(){
       //slot 1 - servo screws
-      translate([30-36.5+7.5,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
-      translate([30-36.5-6,-15+40,-30]) cube([11+15,screwRadius*2,50],center=true);       
-      translate([30-36.5-12-7.5,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      translate([30-36.5+7.5+7.5,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      translate([30-36.5-6,-15+40,-30]) cube([11+15+15,screwRadius*2,50],center=true);       
+      translate([30-36.5-12-7.5-7.5,-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
       // slot 2
-      translate([30-36.5+7.5,-125+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
-      translate([30-36.5-6,-125+75-15+40,-30]) cube([11+15,screwRadius*2,50],center=true);       
-      translate([30-36.5-12-7.5,-125+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      translate([30-36.5+7.5+7.5,-125+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
+      translate([30-36.5-6,-125+75-15+40,-30]) cube([11+15+15,screwRadius*2,50],center=true);       
+      translate([30-36.5-12-7.5-7.5,-125+75-15+40,-30]) cylinder(r=screwRadius,h=50,center=true);
     }
 
         }
@@ -476,10 +470,10 @@ module holeDowelFlange()
 //length=150;
 length = boxWidth+15.5+21;
 
-//color("blue")  translate([200,0,0]) pusher(length);
+color("blue")  translate([200,0,0]) pusher(length);
 //color("red")  translate([0,length/2-20,10])holeFlange();
 //color("orange") translate([-30,-length/2-20-28,25]) servoHolderHoles();
-color("orange") translate([-32,-length/2+16,25]) servoHolderHoles();
+//color("orange") translate([-32,-length/2+16,25]) servoHolderHoles();
 //holeTray();
 //color("red")  translate([0,length/2-20,10])holeDowelFlange();
 
