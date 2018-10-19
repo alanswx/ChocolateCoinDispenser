@@ -239,6 +239,49 @@ module power_supply_bracket(wide){
     
 }
 
+
+
+module receive_board_bracket(){
+    
+    halfBracketThickness=bracketThickness;
+    boardThickness=3;
+    recvLength=145;
+    recvWidth=92;
+    powerBracketWidth=160;
+    wide=0;
+    powerHoleDistanceShort=100;
+    powerHoldDistanceLong=143.5;
+    standoffHeight=20;
+    screwHeadRadius=7;
+    pwBracketWidth=bracketWidth+wide;
+
+    recvHoleDistanceLong=135.3;
+    recvHoleDistanceShort=81.3;
+    // 
+    difference()
+    {
+        union(){    
+            translate([0,recvWidth/2+bracketWidth/2,16.5])color("green")cube([recvLength,recvWidth,boardThickness],center=true);
+            translate([0,14,7.5])color("yellow")cube([recvLength,5,21],center=true);
+            color("blue") rotate(90) translate([bracketWidth/4,0,0])cube([bracketWidth/2,bracketHeight,halfBracketThickness],center=true);
+        }
+ 
+                translate([0,-2,0]) union(){
+               color("green") translate([closeHole/2,farHole/2,0]) cylinder(r=screwRadius,h=20,center=true);
+               color("green") translate([-closeHole/2,farHole/2,0]) cylinder(r=screwRadius,h=20,center=true);
+                       translate([0,(recvWidth/2+bracketWidth/2)+2,15]) {
+            color("red") translate([recvHoleDistanceLong/2,recvHoleDistanceShort/2,0]) cylinder(r=screwRadius,h=50,center=true);
+            color("red") translate([-recvHoleDistanceLong/2,recvHoleDistanceShort/2,0]) cylinder(r=screwRadius,h=50,center=true);
+            color("red") translate([recvHoleDistanceLong/2,-recvHoleDistanceShort/2,0]) cylinder(r=screwRadius,h=50,center=true);
+            color("red") translate([-recvHoleDistanceLong/2,-recvHoleDistanceShort/2,0]) cylinder(r=screwRadius,h=50,center=true);
+
+                       }
+        }
+
+    }
+        
+}
+
 // == example nut catches and holes ==
 
 //difference() {
@@ -252,10 +295,10 @@ module power_supply_bracket(wide){
 	//translate([27.5, 0, 50]) hole_threaded(name="M5", l=60);
 //}
 
-
-translate([0,100,0])power_supply_bracket(0);
+receive_board_bracket();
+//translate([0,100,0])power_supply_bracket(0);
 //power_supply_bracket(10);
 //hanging_bracket();
-//half_bracket();
+//translate([0,0,5])half_bracket();
 //translate([100,0,0])center_bracket();
 //translate([-100,0,0])terminal_holder2();
