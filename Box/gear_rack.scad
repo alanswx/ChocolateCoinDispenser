@@ -118,5 +118,19 @@ use <parametric_involute_gear_v5.0.scad>;
 // Pitch radius (in mm): 18.75
 // Circumference (at pitch radius, in mm): 117.80972450961724
 // Basic gear script, modify to make suitable and/or pretty
-gear(number_of_teeth=25,circular_pitch=450,hub_diameter=2*8.88888889,bore_diameter=6.2);
+
+difference()
+{
+gear(number_of_teeth=25,circular_pitch=450,hub_diameter=2*8.88888889,bore_diameter=6.2,hub_diameter=25,gear_thickness=2,rim_thickness=8,hub_thickness=(8-6.5));
+
+union(){
+    $fn=100;
+    translate([5,5,0]) cylinder(r=1.5,h=20, center=true);
+translate([-5,5,0]) cylinder(r=1.5,h=20, center=true);
+translate([5,-5,0]) cylinder(r=1.5,h=20, center=true);
+translate([-5,-5,0]) cylinder(r=1.5,h=20, center=true);
+//translate([0,0,0]) cube([10,10,10],center=true);
+}
+}
+//gear(number_of_teeth=25,circular_pitch=450,hub_diameter=2*8.88888889,bore_diameter=6.2);
 //holder();
